@@ -18,19 +18,21 @@ const botonesFiltro = document.querySelectorAll('.btn-filtro');
 
 // 3. FUNCIÓN ASÍNCRONA (AJAX simulado): Debe ejecutarse al arrancar la web
 async function inicializarApp() {
+    // TODO: Simular una espera de 1.5 segundos usando una Promesa (setTimeout)
      await new Promise((resolve) => {
     setTimeout(resolve, 1500);
   });
-  loadingState.style.display = 'none';
-  pintarTareas();
-  // TODO: Simular una espera de 1.5 segundos usando una Promesa (setTimeout)
   // TODO: Una vez pasada la espera, ocultar el div #loading-state
+  loadingState.style.display = 'none';
   // TODO: Invocar a la función pintarTareas()
+  pintarTareas();  
 }
 
 // 4. FUNCIÓN DE RENDERIZADO: Encargada de pintar los nodos en el HTML
 function pintarTareas() {
+    // TODO: Limpiar el contenedor listaContenedor (innerHTML = '')
      listaContenedor.innerHTML = '';
+     // TODO: Filtrar el array 'tareas' según el 'filtroActual' usando .filter()
   let tareasFiltradas = tareas.filter((tarea) => {
     if (filtroActual === 'Pendientes') {
       return tarea.completada === false;
@@ -40,9 +42,10 @@ function pintarTareas() {
     }
     return true;
   });
-
+// TODO: Recorrer el array filtrado y crear dinámicamente un elemento <li> por cada tarea
   tareasFiltradas.forEach((tarea) => {
     const elementoTarea = document.createElement('li');
+    // TODO: Configurar las clases CSS según la prioridad y el estado (completada)
     elementoTarea.classList.add('item-tarea');
     elementoTarea.classList.add(tarea.prioridad);
 
@@ -52,6 +55,7 @@ function pintarTareas() {
 
     const textoTarea = document.createElement('span');
     textoTarea.textContent = tarea.titulo;
+     // TODO: Añadir un botón dentro de cada <li> para poder alternar el estado (Completada/Pendiente)
     const botonEstado = document.createElement('button');
 
     if (tarea.completada) {
@@ -74,24 +78,34 @@ function pintarTareas() {
     });
     elementoTarea.appendChild(textoTarea);
     elementoTarea.appendChild(botonEstado);
+     // TODO: Inyectar el <li> resultante en listaContenedor usando .appendChild()
     listaContenedor.appendChild(elementoTarea);
-  });
-  // TODO: Limpiar el contenedor listaContenedor (innerHTML = '')
-  // TODO: Filtrar el array 'tareas' según el 'filtroActual' usando .filter()
-  // TODO: Recorrer el array filtrado y crear dinámicamente un elemento <li> por cada tarea
-  // TODO: Configurar las clases CSS según la prioridad y el estado (completada)
-  // TODO: Añadir un botón dentro de cada <li> para poder alternar el estado (Completada/Pendiente)
-  // TODO: Inyectar el <li> resultante en listaContenedor usando .appendChild()
+  }); 
 }
 
 // 5. MANEJO DE EVENTOS: Captura de formulario
 formulario.addEventListener('submit', (event) => {
-  event.preventDefault();
-  
+  event.preventDefault();  
   // TODO: Capturar los valores de los inputs de forma segura
+    const titulo = inputTitulo.value.trim();
+  const prioridad = selectPrioridad.value;
+
+  if (titulo === '') {
+    return;
+  }
+
   // TODO: Crear un nuevo objeto tarea inmutable con un id único (Date.now())
+   const nuevaTarea = {
+    id: Date.now(),
+    titulo: titulo,
+    prioridad: prioridad,
+    completada: false
+  };
   // TODO: Añadir el objeto al array global de tareas de forma inmutable (operador spread)
+  tareas = [...tareas, nuevaTarea];
   // TODO: Volver a invocar pintarTareas() y resetear el formulario
+    pintarTareas();
+  formulario.reset();
 });
 
 // 6. MANEJO DE EVENTOS: Captura de botones de filtrado
