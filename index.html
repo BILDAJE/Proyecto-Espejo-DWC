@@ -33,12 +33,22 @@
       <button class="btn-filtro" data-filtro="Completadas">Completadas</button>
     </section>
 
-    <!-- Contenedor Dinámico para las Tareas -->
+       <!-- Contenedor Dinámico para las Tareas -->
     <main class="tasks-section">
       <div id="loading-state" class="loading">Cargando tareas desde el servidor...</div>
+
+      <h2>Lista de tareas</h2>
       <ul id="lista-tareas">
         <!-- Las tareas generadas con JS se inyectarán aquí -->
       </ul>
+
+      <!-- Lista espejo: muestra todas las tareas sin permitir modificarlas -->
+      <section class="mirror-section">
+        <h2>Lista espejo</h2>
+        <ul id="lista-espejo">
+          <!-- Las tareas de la lista espejo se generarán con JavaScript -->
+        </ul>
+      </section>
     </main>
   </div>
 
